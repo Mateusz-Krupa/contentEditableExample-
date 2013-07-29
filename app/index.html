@@ -17,8 +17,7 @@
 </head>
   <body ng-app="flashAPIApp">
     <!--[if lt IE 7]>
-      <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com
-      /">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
+      <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com /">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
     <![endif]-->
 
     <!--[if lt IE 9]>
@@ -28,19 +27,41 @@
 
     <!-- Add your site or application content here -->
     <div class="container" ng-controller="MainCtrl">
-        <div ng-switch="tech">
-            <div ng-switch-when="flash">
-                <div contenteditable="{{administrator}}" ng-model="items[0].title"></div>
-                <div contenteditable="{{administrator}}" ng-model="items[0].desc"></div>
+        <div class="container"  when-scrolled="loadMore()" style="overflow: auto; height:200px">
+
+            <button ng-click="setTech('html')">Html player</button>
+            <button ng-click="setTech('flash')">Flash player</button>
+            <button ng-click="save(items)">Save</button>
+
+            <div ng-show = "currentPage > 0" style="height:200px">
+
+                <div ng-switch="tech">
+                    <div ng-switch-when="flash">
+                        <div contenteditable="{{administrator}}" ng-model="items[0].title"></div>
+                        <div contenteditable="{{administrator}}" ng-model="items[0].desc"></div>
+                    </div>
+                    <div ng-switch-when="html" >
+                        <div contenteditable="{{administrator}}" ng-model="items[1].title"></div>
+                        <div contenteditable="{{administrator}}" ng-model="items[1].desc"></div>
+                    </div>
+                </div>
+
             </div>
-            <div ng-switch-when="html" >
-                <div contenteditable="{{administrator}}" ng-model="items[1].title"></div>
-                <div contenteditable="{{administrator}}" ng-model="items[1].desc"></div>
+            <div ng-show = "currentPage > 2" style="height:200px">
+                page 3br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>v
             </div>
+            <div ng-show = "currentPage > 3" style="height:200px">
+                page 4w434e<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>v
+            </div>
+            <div ng-show = "currentPage > 4" style="height:200px">
+                page 444e<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>v
+            </div>
+            <div ng-show = "currentPage > 5" style="height:200px">
+                page 55e<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>v
+            </div>
+
         </div>
-        <button ng-click="setTech('html')">Html player</button>
-        <button ng-click="setTech('flash')">Flash player</button>
-        <button ng-click="save(items)">Save</button>
+
     </div>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
