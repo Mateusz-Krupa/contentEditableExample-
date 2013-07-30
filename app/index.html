@@ -27,13 +27,19 @@
 
     <!-- Add your site or application content here -->
     <div class="container" ng-controller="MainCtrl">
-        <div class="container"  when-scrolled="loadMore()" style="overflow: auto; height:200px">
+            <nav style="position: fixed; right:0" menu>
+            <ul>
+                <li ng-repeat="section in sections" class="{{section.active}}">{{section.name}}</li>
+            </ul>
 
-            <button ng-click="setTech('html')">Html player</button>
-            <button ng-click="setTech('flash')">Flash player</button>
-            <button ng-click="save(items)">Save</button>
-
-            <div ng-show = "currentPage > 0" style="height:200px">
+            </nav>
+            <div class="container"  when-scrolled="loadMore()"1>
+            <section class="btn-group" style="display:none;">
+                <button ng-click="setTech('html')">Html player</button>
+                <button ng-click="setTech('flash')">Flash player</button>
+                <button ng-click="save(items)">Save</button>
+            </section>
+            <div style="height:1100px;background: yellowgreen;">
 
                 <div ng-switch="tech">
                     <div ng-switch-when="flash">
@@ -47,16 +53,17 @@
                 </div>
 
             </div>
-            <div ng-show = "currentPage > 2" style="height:200px">
+
+            <div style="height:1100px;background: darkred;">
                 page 3br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>v
             </div>
-            <div ng-show = "currentPage > 3" style="height:200px">
+            <div style="height:1100px;background: darkblue;">
                 page 4w434e<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>v
             </div>
-            <div ng-show = "currentPage > 4" style="height:200px">
+            <div style="height:1100px;background: yellow;">
                 page 444e<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>v
             </div>
-            <div ng-show = "currentPage > 5" style="height:200px">
+            <div style="height:200px">
                 page 55e<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>v
             </div>
 

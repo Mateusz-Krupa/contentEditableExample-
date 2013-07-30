@@ -14,11 +14,11 @@ angular.module('flashAPIApp', [])
             ctrl.$render();
         }
     };
-    }).directive('whenScrolled', function() {
+    }).directive('whenScrolled', function($window) {
         return function(scope, elm, attr) {
             var raw = elm[0];
-
-            elm.bind('scroll', function() {
+            var body = angular.element($window);
+            body.bind('scroll', function() {
                 if (raw.scrollTop + raw.offsetHeight >= raw.scrollHeight) {
                     scope.$apply(attr.whenScrolled);
                 }
@@ -47,6 +47,47 @@ angular.module('flashAPIApp', [])
 
         return items;
 
+    }).directive("menu", function ($window) {
+        return function (scope, element, attrs) {
+
+            function getScrollOffsets(w) {
+
+                // Use the specified window or the current window if no argument
+                w = w || window;
+
+                // This works for all browsers except IE versions 8 and before
+                if (w.pageXOffset != null) return {
+                    x: w.pageXOffset,
+                    y: w.pageYOffset
+                };
+
+                // For IE (or any browser) in Standards mode
+                var d = w.document;
+                if (document.compatMode == "CSS1Compat") {
+                    return {
+                        x: d.documentElement.scrollLeft,
+                        y: d.documentElement.scrollTop
+                    };
+                }
+
+                // For browsers in Quirks mode
+                return {
+                    x: d.body.scrollLeft,
+                    y: d.body.scrollTop
+                };
+            }
+
+            angular.element($window).bind("scroll", function () {
+                var offset = getScrollOffsets($window);
+                var onPage = parseInt(offset.y/1100);
+                if(onPage != scope.activePage){
+                    scope.sections[onPage].active = 'active';
+                    scope.sections[scope.activePage].active = '';
+                    scope.activePage = onPage;
+                }
+                scope.$apply();
+            });
+        };
     })
     .controller('MainCtrl',function($scope, pageModel){
 
@@ -55,7 +96,7 @@ angular.module('flashAPIApp', [])
         $scope.administrator = true;
         $scope.currentPage = 1;
         $scope.totalPages = 6;
-
+        $scope.activePage = 0;
         $scope.setTech = function(text){
             $scope.tech = text;
         };
@@ -84,11 +125,10 @@ angular.module('flashAPIApp', [])
                     $scope.items.push(value);
                     counter += 1;
                 }
-                    console.log($scope.items);
-
             }
         };
 
+        $scope.sections = [{"name":"pierwsza", "active":"active"},{"name":"druga","active":""},{"name":"trzecia","active":""},{"name":"czwarta","active":""},{"name":"piata","active":""},{"name":"druga","active":""}]
         $scope.loadMore();
 
 
